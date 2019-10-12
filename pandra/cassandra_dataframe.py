@@ -114,6 +114,9 @@ class CassandraDataFrame(pd.DataFrame):
         else:
             column_names = self.columns
             return dict(zip(column_names, types))
+     
+    def set_key_space(self, key_space):
+       self.key_space = key_space
 
     def to_cassandra(self,
                      cassandra_session,
@@ -147,7 +150,7 @@ class CassandraDataFrame(pd.DataFrame):
         connector = type(table_name, (cql_connector.CassandraTable,), data_types)
 
         if create_table:
-            cql_create = connector.create()
+            cql_create = connector.create(self.key_space)
             if not debug:
                 try:
                     cassandra_session.execute(cql_create)
