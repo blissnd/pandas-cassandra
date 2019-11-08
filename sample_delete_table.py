@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import datetime
 import pandra as cql
 from cassandra.cluster import Cluster
